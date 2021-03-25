@@ -3,9 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using SQLite;
 
 namespace DoToo.Repositories {
     class TodoItemRepository : ITodoItemRepository {
+        private SQLiteAsyncConnection connection;
+
         public event EventHandler<TodoItem> OnItemAdded;
         public event EventHandler<TodoItem> OnItemUpdated;
 
