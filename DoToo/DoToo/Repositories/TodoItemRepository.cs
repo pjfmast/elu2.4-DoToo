@@ -7,7 +7,7 @@ using SQLite;
 using System.IO;
 
 namespace DoToo.Repositories {
-    class TodoItemRepository : ITodoItemRepository {
+    public class TodoItemRepository : ITodoItemRepository {
         private SQLiteAsyncConnection connection;
 
         public event EventHandler<TodoItem> OnItemAdded;

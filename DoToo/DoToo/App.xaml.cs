@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoToo.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,7 +8,7 @@ namespace DoToo {
         public App() {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(Resolver.Resolve<MainView>());
         }
 
         protected override void OnStart() {
