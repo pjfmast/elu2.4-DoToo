@@ -1,5 +1,7 @@
 ﻿using DoToo.Models;
 using System;
+using System.Windows.Input;
+using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,6 +10,11 @@ namespace DoToo.ViewModels {
         public TodoItem Item { get; private set; }
         public event EventHandler ItemStatusChanged;
         public string StatusText => Item.Completed ? "Reactivate" : "Completed";
+
+        public ICommand ToggleCompleted => new Command((arg) => {
+            Item.Completed = !Item.Completed;
+            ItemStatusChanged?.Invoke(this, new EventArgs());
+        });
         
         public TodoItemViewModel(TodoItem item) => Item = item;
     }

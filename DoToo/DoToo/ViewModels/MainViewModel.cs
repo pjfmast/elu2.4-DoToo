@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace DoToo.ViewModels {
     public class MainViewModel : ViewModel {
@@ -23,6 +24,27 @@ namespace DoToo.ViewModels {
                 Task.Run(async () => await LoadData());
             this.repository = repository;
             Task.Run(async () => await LoadData());
+        }
+
+
+        public TodoItemViewModel SelectedItem {
+            get { return null; }
+            set { 
+                Device.BeginInvokeOnMainThread(async () => NavigateToItem(value));
+                RaisePropertyChanged(nameof(SelectedItem));
+            }
+        }
+
+        private async void NavigateToItem(TodoItemViewModel item) {
+            if (item == null) {
+                return;
+            }
+
+            var itemView = Resolver.Resolve<ItemView>();
+            var vm = itemView.BindingContext as ItemViewModel;
+            vm.Item = item.Item;
+
+            await Navigation.PushAsync(itemView);
         }
 
         private async Task LoadData() {
