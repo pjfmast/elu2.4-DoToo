@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:DoToo.ViewModels"
+             xmlns:local="clr-namespace:DoToo"
              xmlns:converters="clr-namespace:DoToo.Converters"
              x:Class="DoToo.Views.MainView"
              Title="Do Too!">
@@ -20,15 +20,26 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Button Text="Toggle filter" />
+        <Button Style="{StaticResource FilterButton}"
+                Text="{Binding FilterText, StringFormat='Filter: {0}'}"
+                BackgroundColor="{Binding ShowAll, Converter={StaticResource statusColorConverter}}"
+                TextColor="Black"
+                Command="{Binding ToggleFilter}">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button" Binding="{Binding ShowAll}" Value="True">
+                    <Setter Property="TextColor" Value="White" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
 
         <ListView x:Name="ItemsListView"
                   SelectedItem="{Binding SelectedItem}"
                   Grid.Row="1"
-                  RowHeight="70"
+                  
+                  HasUnevenRows="True"
                   ItemsSource="{Binding Items}">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:ItemViewModel">
+                <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
                             <MenuItem Text="{Binding StatusText}"
@@ -47,13 +58,14 @@
                                    FontSize="Large" />
                             <Label Grid.Column="1"
                                    Grid.Row="1"
-                                   Text="{Binding Item.Due}"
+                                   Text="{Binding Item.Due, StringFormat='{0:MMMM d, yyyy}'}"
                                    FontSize="Micro" />
                             <Label Grid.Column="1"
                                    Grid.Row="1"
                                    HorizontalTextAlignment="End"
                                    Text="Completed"
                                    IsVisible="{Binding Item.Completed}"
+                                   TextColor="{StaticResource CompletedColor}"
                                    FontSize="Micro" />
                         </Grid>
                     </ViewCell>

@@ -23,7 +23,8 @@ namespace DoToo.Repositories {
             var documentPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var databasePath = Path.Combine(documentPath, "TodoItems.db");
 
-            connection = new SQLiteAsyncConnection(databasePath);
+            //connection = new SQLiteAsyncConnection(databasePath);
+            connection = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
             await connection.CreateTableAsync<TodoItem>();
 
             if (await connection.Table<TodoItem>().CountAsync() == 0) {
