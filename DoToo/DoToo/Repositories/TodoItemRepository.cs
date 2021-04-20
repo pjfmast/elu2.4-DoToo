@@ -20,8 +20,8 @@ namespace DoToo.Repositories {
             }
             // In this case, we will choose the MyDocuments folder.
             // Xamarin will find the closest match to this on each platform that we target.
-            var documentPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var databasePath = Path.Combine(documentPath, "TodoItems.db");
+            //var documentPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //var databasePath = Path.Combine(documentPath, "TodoItems.db");
 
             //connection = new SQLiteAsyncConnection(databasePath);
             connection = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
