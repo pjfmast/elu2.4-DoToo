@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DoToo {
     public static class Constants {
-        public const string DatabaseFilename = "TodoItems.db3";
+        public const string DatabaseFilename = "TodoItems.db";
 
         public const SQLite.SQLiteOpenFlags Flags =
             // open the database in read/write mode
